@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.model;public class Vacancy {
+package nl.novi.okerwebapp.model;
+
+public class Vacancy {
 }

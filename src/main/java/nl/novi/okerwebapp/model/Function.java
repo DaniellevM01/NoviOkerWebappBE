@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.model;public class Function {
+package nl.novi.okerwebapp.model;
+
+public class Function {
 }

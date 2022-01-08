@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.model;public class SalaryCalculator {
+package nl.novi.okerwebapp.model;
+
+public class SalaryCalculator {
 }
