@@ -10,6 +10,9 @@ public class User {
 
     @Id
     @Column(nullable = false, unique = true)
+    private String user_id;
+
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)

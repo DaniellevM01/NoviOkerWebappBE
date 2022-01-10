@@ -12,7 +12,7 @@ public class Function {
 
     @Id
     @Column(nullable = false)
-    private int id;
+    private int function_id;
 
     @Column(nullable = false)
     private String name;
@@ -23,7 +23,7 @@ public class Function {
     //constructor
     public Function() {}
         public Function(int id, String name, int basicsalary) {
-            this.id = id;
+            this.function_id = id;
             this.name = name;
             this.basicsalary = basicsalary;
     }
@@ -31,11 +31,11 @@ public class Function {
     //getters en setters
 
     public int getId() {
-        return id;
+        return function_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.function_id = id;
     }
 
     public String getName() {

@@ -11,7 +11,7 @@ import javax.persistence.Table;
 public class Transport {
     @Id
     @Column(nullable = false)
-    private int id;
+    private int transport_id;
 
     @Column(nullable = false)
     private String name;
@@ -20,17 +20,17 @@ public class Transport {
     private int costs;
 
     public Transport(int id, String name, int costs) {
-        this.id = id;
+        this.transport_id = id;
         this.name = name;
         this.costs = costs;
     }
 
     public int getId() {
-        return id;
+        return transport_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.transport_id = id;
     }
 
     public String getName() {

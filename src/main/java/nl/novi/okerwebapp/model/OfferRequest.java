@@ -9,7 +9,7 @@ public class OfferRequest {
 
     @Id
     @Column(nullable = false)
-    private int id;
+    private int offerrequest_id;
 
     //moet van userklasse komen
     @Id
@@ -32,7 +32,7 @@ public class OfferRequest {
     private User user_id;
 
     public OfferRequest(int id, String userid, String description, String file, String status) {
-        this.id = id;
+        this.offerrequest_id = id;
         this.userid = userid;
         this.description = description;
         this.file = file;
@@ -40,11 +40,11 @@ public class OfferRequest {
     }
 
     public int getId() {
-        return id;
+        return offerrequest_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.offerrequest_id = id;
     }
 
     public String getUserid() {

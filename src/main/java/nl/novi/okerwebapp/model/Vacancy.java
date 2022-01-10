@@ -10,7 +10,7 @@ import java.util.Set;
 public class Vacancy {
     @Id
     @Column(nullable = false)
-    private int id;
+    private int vacancy_id;
 
     @Column(nullable = false)
     private String title;
@@ -28,18 +28,18 @@ public class Vacancy {
     private Set<VacancyRequest> vacancyRequests = new HashSet<>();
 
     public Vacancy(int id, String title, String description, boolean enabled) {
-        this.id = id;
+        this.vacancy_id = id;
         this.title = title;
         this.description = description;
         this.enabled = enabled;
     }
 
     public int getId() {
-        return id;
+        return vacancy_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.vacancy_id = id;
     }
 
     public String getTitle() {
