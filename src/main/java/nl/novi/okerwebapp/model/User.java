@@ -16,7 +16,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private int telephonenumber;
+    private int telephone_number;
 
     @Column(nullable = false)
     private String name;
@@ -32,6 +32,18 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
+
+    @OneToMany(
+            targetEntity = OfferRequest.class,
+            mappedBy = "user_id",
+            fetch = FetchType.LAZY)
+    private Set<OfferRequest> offerRequests = new HashSet<>();
+
+    @OneToMany(
+            targetEntity = VacancyRequest.class,
+            mappedBy = "user_id",
+            fetch = FetchType.LAZY)
+    private Set<VacancyRequest> vacancyRequests = new HashSet<>();
 
     // ook onetomany met OR, VR voor userid
 
@@ -78,11 +90,11 @@ public class User {
     }
 
     public int getTelephonenumber() {
-        return telephonenumber;
+        return telephone_number;
     }
 
     public void setTelephonenumber(int telephonenumber) {
-        this.telephonenumber = telephonenumber;
+        this.telephone_number = telephonenumber;
     }
 
     public String getName() {

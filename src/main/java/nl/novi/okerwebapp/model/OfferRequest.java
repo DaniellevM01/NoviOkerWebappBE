@@ -1,9 +1,6 @@
 package nl.novi.okerwebapp.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "OfferRequests")
@@ -29,6 +26,10 @@ public class OfferRequest {
 
     @Column(nullable = false)
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user_id;
 
     public OfferRequest(int id, String userid, String description, String file, String status) {
         this.id = id;

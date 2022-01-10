@@ -8,12 +8,11 @@ import javax.persistence.*;
 public class VacancyRequest {
     @Id
     @Column(nullable = false)
-    private int id;
+    private int vacancy_id;
 
-    //moet uit user komen
-    @Id
-    @Column(nullable = false)
-    private int userid;
+    //@Id
+    //@Column(nullable = false)
+    //private int user_id;
 
     @Column(nullable = false)
     private String remarks;
@@ -29,27 +28,31 @@ public class VacancyRequest {
     @JoinColumn(name = "vacancy_id", nullable = false)
     private Vacancy vacancy;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private int user_id;
+
     public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserid() {
-        return userid;
-    }
-
-    public void setUserid(int userid) {
-        this.userid = userid;
-    }
-
-    public String getVacancy() {
         return vacancy_id;
     }
 
-    public void setVacancy(String vacancy) {
+    public void setId(int id) {
+        this.vacancy_id = id;
+    }
+
+    public int getUserid() {
+        return user_id;
+    }
+
+    public void setUserid(int userid) {
+        this.user_id = userid;
+    }
+
+    public int getVacancy() {
+        return vacancy_id;
+    }
+
+    public void setVacancy(int vacancy) {
         this.vacancy_id = vacancy;
     }
 
