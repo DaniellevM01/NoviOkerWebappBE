@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.controller;public class OfferRequestController {
+package nl.novi.okerwebapp.controller;
+
+public class OfferRequestController {
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "authorities")
+@Table(name = "Authorities")
 @IdClass(AuthorityKey.class)
 public class Authority implements Serializable{
 

@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -16,7 +16,14 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private boolean enabled = true;
+    private int telephonenumber;
+
+    @Column(nullable = false)
+    private String name;
+
+    // Deze weghalen?
+    //@Column(nullable = false)
+    //private boolean enabled = true;
 
     @OneToMany(
             targetEntity = Authority.class,
@@ -25,6 +32,8 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
+
+    // ook onetomany met OR, VR voor userid
 
     // getters and setters
 
@@ -44,13 +53,13 @@ public class User {
         this.password = password;
     }
 
-    public boolean isEnabled() {
-        return enabled;
-    }
+    //public boolean isEnabled() {
+    //    return enabled;
+    //}
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
+    //public void setEnabled(boolean enabled) {
+    //    this.enabled = enabled;
+    //}
 
     public Set<Authority> getAuthorities() { return authorities; }
     public void setAuthorities(Set<Authority> authorities) { this.authorities = authorities; }
@@ -68,5 +77,20 @@ public class User {
         this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityString));
     }
 
+    public int getTelephonenumber() {
+        return telephonenumber;
+    }
+
+    public void setTelephonenumber(int telephonenumber) {
+        this.telephonenumber = telephonenumber;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 

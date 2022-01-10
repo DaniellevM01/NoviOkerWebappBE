@@ -1,2 +1,15 @@
-package nl.novi.okerwebapp.controller;public class FunctionController {
+package nl.novi.okerwebapp.controller;
+
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class FunctionController {
+
+    //post
+
+    //put
+
+    //delete
+
+
 }
