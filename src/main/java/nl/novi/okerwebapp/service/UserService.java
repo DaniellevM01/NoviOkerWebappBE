@@ -57,7 +57,7 @@ public class UserService {
             User user = new User();
             user.setUsername(userPostRequest.getUsername());
             user.setPassword(encryptedPassword);
-            user.setEnabled(true);
+            //user.setEnabled(true);
             user.addAuthority("ROLE_USER");
             for (String s : userPostRequest.getAuthorities()) {
                 if (!s.startsWith("ROLE_")) {
@@ -95,7 +95,7 @@ public class UserService {
         else {
             User user = userOptional.get();
             user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            user.setEnabled(newUser.isEnabled());
+            //user.setEnabled(newUser.isEnabled());
             userRepository.save(user);
         }
     }
