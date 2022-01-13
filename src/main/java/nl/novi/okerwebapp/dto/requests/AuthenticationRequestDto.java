@@ -1,4 +1,4 @@
-package nl.novi.okerwebapp.dto;
+package nl.novi.okerwebapp.dto.requests;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

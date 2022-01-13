@@ -1,7 +1,7 @@
 package nl.novi.okerwebapp.controller;
 
-import nl.novi.okerwebapp.dto.AuthenticationRequestDto;
-import nl.novi.okerwebapp.dto.AuthenticationResponseDto;
+import nl.novi.okerwebapp.dto.requests.AuthenticationRequestDto;
+import nl.novi.okerwebapp.dto.responses.AuthenticationResponseDto;
 import nl.novi.okerwebapp.service.UserAuthenticateService;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,13 +1,12 @@
 package nl.novi.okerwebapp.controller;
 
 
-import nl.novi.okerwebapp.dto.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 

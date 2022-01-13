@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.service;public class ContactRequestService {
+package nl.novi.okerwebapp.service;
+
+public class ContactRequestService {
 }

@@ -31,14 +31,6 @@ public class OfferRequest {
     @JoinColumn(name = "user_id", nullable = false)
     private User user_id;
 
-    public OfferRequest(int id, String userid, String description, String file, String status) {
-        this.offerrequest_id = id;
-        this.userid = userid;
-        this.description = description;
-        this.file = file;
-        this.status = status;
-    }
-
     public int getId() {
         return offerrequest_id;
     }

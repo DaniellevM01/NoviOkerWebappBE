@@ -15,7 +15,7 @@ public class VacancyRequest {
     //private int user_id;
 
     @Column(nullable = false)
-    private String remarks;
+    private String description;
 
     //file
     @Column(nullable = false)
@@ -56,12 +56,12 @@ public class VacancyRequest {
         this.vacancy_id = vacancy;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getDescription() {
+        return description;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getFile() {

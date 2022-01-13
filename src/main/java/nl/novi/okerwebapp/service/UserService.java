@@ -1,6 +1,6 @@
 package nl.novi.okerwebapp.service;
 
-import nl.novi.okerwebapp.dto.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.exception.InvalidPasswordException;
 import nl.novi.okerwebapp.exception.UserNotFoundException;

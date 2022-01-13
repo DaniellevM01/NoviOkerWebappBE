@@ -20,15 +20,12 @@ public class Function {
     @Column(nullable = false)
     private int basicSalary;
 
-    //constructor
     public Function() {}
-        public Function(int id, String name, int basicsalary) {
-            this.function_id = id;
+        public Function(int function_id, String name, int basicsalary) {
+            this.function_id = function_id;
             this.name = name;
             this.basicSalary = basicsalary;
     }
-
-    //getters en setters
 
     public int getId() {
         return function_id;

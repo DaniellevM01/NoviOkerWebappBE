@@ -1,4 +1,7 @@
 package nl.novi.okerwebapp.repository;
 
-public interface OfferRequestRepository {
+import nl.novi.okerwebapp.model.OfferRequest;
+import org.springframework.data.repository.CrudRepository;
+
+public interface OfferRequestRepository extends CrudRepository<OfferRequest, Integer> {
 }

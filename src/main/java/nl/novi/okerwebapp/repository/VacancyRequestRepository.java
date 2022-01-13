@@ -1,4 +1,7 @@
 package nl.novi.okerwebapp.repository;
 
-public interface VacancyRequestRepository {
+import nl.novi.okerwebapp.model.VacancyRequest;
+import org.springframework.data.repository.CrudRepository;
+
+public interface VacancyRequestRepository extends CrudRepository<VacancyRequest, Integer> {
 }
