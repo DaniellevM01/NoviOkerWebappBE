@@ -3,12 +3,12 @@ package nl.novi.okerwebapp.service;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
 import nl.novi.okerwebapp.model.Function;
-import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.repository.FunctionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -21,11 +21,10 @@ public class FunctionService {
         this.functionRepository = functionRepository;
     }
 
-    //get
     public Function getFunction(int function_id) {
-        Optional<Function> optionalFunction = functionRepository.findById(function_id);
+        Iterable<Function> optionalFunction = functionRepository.findById(function_id);
         if (optionalFunction.isPresent()) {
-            return optionalFunction.get();
+            return optionalFunction.getFunction();
         }
         else {
             throw new RecordNotFoundException("ID does not exist");
@@ -36,31 +35,45 @@ public class FunctionService {
         return functionRepository.findAll();
     }
 
-    //post
-    public void addFunction (Function function) {
-      //List<Function> functions = List<Function>;
-      //if() {
-      //    throw new BadRequestException("Function already exists");
-      //}
+    //post check op id of/en name?
+    public int addFunction (Function function) {
+      List<Function> functions = List<Function>.functionRepository.findById(function_id);
+      if(functions.size() > 0) {
+          throw new BadRequestException("Function already exists");
+      }
+      return newFunction.getFunction(function_id);
     }
 
-    //put
-    public void updateFunction (String name, int basicsalary) {
-    Optional<Function> optionalFunction = functionRepository.findById(function_id);
+    public void updateFunction(long function_id, Function function) {
+        if (!functionRepository.existsById(function_id)) throw new RecordNotFoundException();
+        Function existingFunction = functionRepository.findById(function_id).get();
+        existingFunction.setName(function.getName());
+        existingFunction.setBasicSalary(function.getBasicSalary());
+        functionRepository.save(existingFunction);
+    }
 
-        if (false) {
-        } else {
-            throw new RecordNotFoundException("ID does not exist");
+    public void partialUpdateFunction(long id, Map<String, String> fields) {
+        if (!functionRepository.existsById(id)) throw new RecordNotFoundException();
+        Function book = functionRepository.findById(id).get();
+        for (String field : fields.keySet()) {
+            switch (field.toLowerCase()) {
+                case "name":
+                    book.setName((String) fields.get(field));
+                    break;
+                case "basicSalary":
+                    book.setBasicSalary((String) fields.get(field));
+                    break;
+            }
         }
+        functionRepository.save(existingFunction);
+    }
+
+    public void deleteFunction(long function_id) {
+        if (!functionRepository.existsById(function_id)) throw new RecordNotFoundException("ID does not exist");
+        functionRepository.deleteById(function_id);
     }
 
 
-    // delete
-    public void deleteFunction() {
-        if (false) {
-        } else {
-            throw new RecordNotFoundException("ID does not exist")
-        }
-    }
+
 
 }

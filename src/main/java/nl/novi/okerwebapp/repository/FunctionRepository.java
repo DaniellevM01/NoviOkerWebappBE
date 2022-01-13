@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface FunctionRepository extends CrudRepository<Function, Integer> {
 
-//    Iterable<Function> findByName(String name);
-//    Iterable<Function> findById(int function_id);
+   Iterable<Function> findByName(String name);
+   Iterable<Function> findById(int function_id);
 
 }

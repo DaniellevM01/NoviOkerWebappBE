@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.repository;public interface TransportRepository {
+package nl.novi.okerwebapp.repository;
+
+public interface TransportRepository {
 }

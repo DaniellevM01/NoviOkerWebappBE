@@ -1,2 +1,4 @@
-package nl.novi.okerwebapp.repository;public interface OfferRequestRepository {
+package nl.novi.okerwebapp.repository;
+
+public interface OfferRequestRepository {
 }

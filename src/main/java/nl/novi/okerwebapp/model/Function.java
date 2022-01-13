@@ -18,14 +18,14 @@ public class Function {
     private String name;
 
     @Column(nullable = false)
-    private int basicsalary;
+    private int basicSalary;
 
     //constructor
     public Function() {}
         public Function(int id, String name, int basicsalary) {
             this.function_id = id;
             this.name = name;
-            this.basicsalary = basicsalary;
+            this.basicSalary = basicsalary;
     }
 
     //getters en setters
@@ -46,11 +46,11 @@ public class Function {
         this.name = name;
     }
 
-    public int getBasicsalary() {
-        return basicsalary;
+    public int getBasicSalary() {
+        return basicSalary;
     }
 
-    public void setBasicsalary(int basicsalary) {
-        this.basicsalary = basicsalary;
+    public void setBasicSalary(int basicsalary) {
+        this.basicSalary = basicsalary;
     }
 }
