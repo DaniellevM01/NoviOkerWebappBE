@@ -27,8 +27,8 @@ public class OfferApplicationService {
         offerApplication.setDescription(offerApplicationRequestDto.getDescription());
         //offerRequest.setUserid(); => USER_ID VAN INGELOGDE GEBRUIKER
         //offerRequest.setFile(); => LES TERUGKIJKEN
-
         OfferApplication newOfferApplication = offerApplicationRepository.save(offerApplication);
+
         return newOfferApplication.getId();
     }
 

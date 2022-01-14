@@ -8,6 +8,7 @@ import nl.novi.okerwebapp.model.Authority;
 import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -42,10 +43,6 @@ public class UserService {
         return userRepository.findById(username);
     }
 
-    //public boolean userExists(String username) {
-     //   return userRepository.existsById(username);
-    //}
-
     public String createUser(UserPostRequestDto userPostRequest) {
         if(!isValidUsername(userPostRequest.getUsername()) || !isValidPassword(userPostRequest.getPassword())) {
             throw new BadRequestException("Username or password does not match required standards");
@@ -57,7 +54,6 @@ public class UserService {
             User user = new User();
             user.setUsername(userPostRequest.getUsername());
             user.setPassword(encryptedPassword);
-            //user.setEnabled(true);
             user.addAuthority("ROLE_USER");
             for (String s : userPostRequest.getAuthorities()) {
                 if (!s.startsWith("ROLE_")) {
@@ -68,8 +64,21 @@ public class UserService {
                     user.addAuthority(s);
                 }
             }
-
             User newUser = userRepository.save(user);
+            //MAIL STUREN
+            public void createUserEmail(UserPostRequestDto userPostRequestDto) {
+                String body = "Welkom! \n" +
+                        "Bedankt voor het aanmaken van een account en het indienen van uw verzoek. \n" +
+                        "\n" +
+                        "U kunt nu inloggen met het door u gekozen email-adres en wachtwoord. \n" +
+                        "Via uw account kunt u de behandeling van uw aanvraag volgen";
+
+                SimpleMailMessage mail = new SimpleMailMessage();
+                mail.setSubject("Welkom!");
+                mail.setText(body);
+                mail.setTo(userPostRequest.getUsername());
+            };
+
             return newUser.getUsername();
         }
         catch (Exception ex) {
