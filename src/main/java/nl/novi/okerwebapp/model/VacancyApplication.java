@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "VacancyRequests")
 
-public class VacancyRequest {
+public class VacancyApplication {
     @Id
     @Column(nullable = false)
     private int vacancy_id;

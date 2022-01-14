@@ -3,7 +3,7 @@ package nl.novi.okerwebapp.dto.requests;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class OfferRequestRequestDto {
+public class OfferApplicationRequestDto {
 
     @NotBlank
     @Size(min=1, max=300, message="description is too long or too short")

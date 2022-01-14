@@ -22,10 +22,10 @@ public class Vacancy {
     private boolean enabled;
 
     @OneToMany(
-            targetEntity = VacancyRequest.class,
+            targetEntity = VacancyApplication.class,
             mappedBy = "vacancy_id",
             fetch = FetchType.LAZY)
-    private Set<VacancyRequest> vacancyRequests = new HashSet<>();
+    private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
     public Vacancy(int id, String title, String description, boolean enabled) {
         this.vacancy_id = id;

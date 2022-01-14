@@ -3,18 +3,18 @@ package nl.novi.okerwebapp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "OfferRequests")
+@Table(name = "OfferApplications")
 
-public class OfferRequest {
+public class OfferApplication {
 
     @Id
     @Column(nullable = false)
-    private int offerrequest_id;
+    private int offerApplication_id;
 
     //moet van userklasse komen
-    @Id
-    @Column(nullable = false)
-    private String userid;
+    //@Id
+    //@Column(nullable = false)
+    //private String user_id;
 
     @Column(nullable = false)
     private String description;
@@ -32,20 +32,20 @@ public class OfferRequest {
     private User user_id;
 
     public int getId() {
-        return offerrequest_id;
+        return offerApplication_id;
     }
 
     public void setId(int id) {
-        this.offerrequest_id = id;
+        this.offerApplication_id = id;
     }
 
-    public String getUserid() {
-        return userid;
-    }
+    //public String getUserid() {
+    //    return user_id;
+    //}
 
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
+    //public void setUserid(String userid) {
+    //    this.user_id = user_id;
+    //}
 
     public String getDescription() {
         return description;

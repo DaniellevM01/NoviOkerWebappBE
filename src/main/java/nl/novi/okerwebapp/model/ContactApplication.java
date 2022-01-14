@@ -1,6 +1,6 @@
 package nl.novi.okerwebapp.model;
 
-public class ContactRequest {
+public class ContactApplication {
 
     //name, telephonenumber, question, emailaddress
 }
