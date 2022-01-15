@@ -7,7 +7,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "Transports")
-
 public class Transport {
     @Id
     @Column(nullable = false)
@@ -18,12 +17,6 @@ public class Transport {
 
     @Column(nullable = false)
     private int costs;
-
-    public Transport(int id, String name, int costs) {
-        this.transport_id = id;
-        this.name = name;
-        this.costs = costs;
-    }
 
     public int getId() {
         return transport_id;

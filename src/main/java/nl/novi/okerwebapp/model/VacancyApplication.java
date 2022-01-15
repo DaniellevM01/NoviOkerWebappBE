@@ -3,12 +3,12 @@ package nl.novi.okerwebapp.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "VacancyRequests")
+@Table(name = "VacancyApplications")
 
 public class VacancyApplication {
     @Id
     @Column(nullable = false)
-    private int vacancy_id;
+    private int vacancy_application_id;
 
     //@Id
     //@Column(nullable = false)
@@ -24,36 +24,36 @@ public class VacancyApplication {
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacancy_id", nullable = false)
     private Vacancy vacancy;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private int user_id;
+    private User user;
 
     public int getId() {
-        return vacancy_id;
+        return vacancy_application_id;
     }
 
     public void setId(int id) {
-        this.vacancy_id = id;
+        this.vacancy_application_id = id;
     }
 
-    public int getUserid() {
-        return user_id;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserid(int userid) {
-        this.user_id = userid;
+    public void setUser(int userid) {
+        this.user = user;
     }
 
-    public int getVacancy() {
-        return vacancy_id;
+    public Vacancy getVacancy() {
+        return vacancy;
     }
 
-    public void setVacancy(int vacancy) {
-        this.vacancy_id = vacancy;
+    public void setVacancy(Vacancy vacancy) {
+        this.vacancy = vacancy;
     }
 
     public String getDescription() {
