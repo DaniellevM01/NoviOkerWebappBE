@@ -29,9 +29,9 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping(value = "/{username}")
-    public ResponseEntity<Object> getUser(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getUser(username));
+    @GetMapping(value = "/{user_id}")
+    public ResponseEntity<Object> getUser(@PathVariable("user_id") Integer user_id) {
+        return ResponseEntity.ok().body(userService.getUser(user_id));
     }
 
     @PostMapping(value = "")
@@ -47,28 +47,28 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
-    @PutMapping(value = "/{username}")
-    public ResponseEntity<Object> updateUser(@PathVariable("username") String username, @RequestBody User user) {
-        userService.updateUser(username, user);
+    @PutMapping(value = "/{user_id}")
+    public ResponseEntity<Object> updateUser(@PathVariable("user_id") Integer user_id, @RequestBody User user) {
+        userService.updateUser(user_id, user);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping(value = "/{username}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
-        userService.deleteUser(username);
+    @DeleteMapping(value = "/{user_id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("user_id") Integer user_id) {
+        userService.deleteUser(user_id);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
+    @GetMapping(value = "/{user_id}/authorities")
+    public ResponseEntity<Object> getUserAuthorities(@PathVariable("user_id") Integer user_id) {
+        return ResponseEntity.ok().body(userService.getAuthorities(user_id));
     }
 
-    @PostMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
+    @PostMapping(value = "/{user_id}/authorities")
+    public ResponseEntity<Object> addUserAuthority(@PathVariable("user_id") Integer user_id, @RequestBody Map<String, Object> fields) {
         try {
             String authorityName = (String) fields.get("authority");
-            userService.addAuthority(username, authorityName);
+            userService.addAuthority(user_id, authorityName);
             return ResponseEntity.noContent().build();
         }
         catch (Exception ex) {
@@ -76,15 +76,15 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(value = "/{username}/authorities/{authority}")
-    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
-        userService.removeAuthority(username, authority);
+    @DeleteMapping(value = "/{user_id}/authorities/{authority}")
+    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("user_id") Integer user_id, @PathVariable("authority") String authority) {
+        userService.removeAuthority(user_id, authority);
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping(value = "/{username}/password")
-    public ResponseEntity<Object> setPassword(@PathVariable("username") String username, @RequestBody String password) {
-        userService.setPassword(username, password);
+    @PatchMapping(value = "/{user_id}/password")
+    public ResponseEntity<Object> setPassword(@PathVariable("user_id") Integer user_id, @RequestBody String password) {
+        userService.setPassword(user_id, password);
         return ResponseEntity.noContent().build();
     }
 
