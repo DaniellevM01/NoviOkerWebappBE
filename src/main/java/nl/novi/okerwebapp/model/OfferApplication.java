@@ -8,7 +8,7 @@ public class OfferApplication {
 
     @Id
     @Column(nullable = false)
-    private int offerApplication_id;
+    private int offer_application_id;
 
     //moet van userklasse komen
     //@Id
@@ -30,11 +30,11 @@ public class OfferApplication {
     private User user;
 
     public int getId() {
-        return offerApplication_id;
+        return offer_application_id;
     }
 
     public void setId(int id) {
-        this.offerApplication_id = id;
+        this.offer_application_id = id;
     }
 
     //public String getUserid() {

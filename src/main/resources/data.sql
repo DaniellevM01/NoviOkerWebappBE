@@ -15,10 +15,24 @@ VALUES
 
 INSERT INTO users(user_id, username, password, telephone_number, name)
 VALUES
-(1, 'danielleoker@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle Admin');
+(1, 'danielleoker@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle Admin'),
+(2, 'okerofferapplication@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle OfferApplication'),
+(3, 'okervacancyapplication@gmail.com' '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle VacancyApplication');
 
-INSERT INTO authorities (user_id, authority)
+--INSERT INTO authorities (user_id, authority)
+--VALUES
+--(1, 'admin', 'ROLE_USER'),
+--(1, 'admin', 'ROLE_ADMIN'),
+--(2, 'ROLE_USER');
+
+INSERT INTO transports (transport_id, name, costs)
 VALUES
-(1, 'admin', 'ROLE_USER'),
-(1, 'admin', 'ROLE_ADMIN'),
-(2, 'ROLE_USER');
+(1, 'Lease-auto klein', 350),
+(2, 'Lease-auto middenklasse', 600),
+(3, 'Lease-auto exclusief segment', 1100),
+(4, 'Trein abonnement', 300),
+(5, 'Eigen vervoer', 0);
+
+--INSERT INTO vacancy_applications(vacancy_application_id, user_id??, description, file, status)
+
+--INSERT INTO offer_applications (offerApplication_id, user_id??, description, file, status)
