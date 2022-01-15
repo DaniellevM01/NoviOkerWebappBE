@@ -7,7 +7,7 @@ public class ContactApplicationRequestDto {
 
     @NotBlank
     private String name;
-    private int telephoneNumber;
+    private String telephone_number;
     private String question;
     private String emailAddress;
 
@@ -19,12 +19,12 @@ public class ContactApplicationRequestDto {
         this.name = name;
     }
 
-    public int getTelephoneNumber() {
-        return telephoneNumber;
+    public String getTelephoneNumber() {
+        return telephone_number;
     }
 
-    public void setTelephoneNumber(int telephoneNumber) {
-        this.telephoneNumber = telephoneNumber;
+    public void setTelephoneNumber(String telephoneNumber) {
+        this.telephone_number = telephone_number;
     }
 
     public String getQuestion() {

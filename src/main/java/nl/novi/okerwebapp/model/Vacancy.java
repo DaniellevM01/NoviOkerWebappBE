@@ -26,12 +26,6 @@ public class Vacancy {
             fetch = FetchType.LAZY)
     private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
-    /*public Vacancy(int id, String title, String description, boolean enabled) {
-        this.vacancy_id = id;
-        this.title = title;
-        this.description = description;
-        this.enabled = enabled;
-    }*/
 
     public int getId() {
         return vacancy_id;
