@@ -3,6 +3,7 @@ package nl.novi.okerwebapp.service;
 import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.exception.InvalidPasswordException;
+import nl.novi.okerwebapp.exception.NotAuthorizedException;
 import nl.novi.okerwebapp.exception.UserNotFoundException;
 import nl.novi.okerwebapp.model.Authority;
 import nl.novi.okerwebapp.model.User;
@@ -66,18 +67,18 @@ public class UserService {
             }
             User newUser = userRepository.save(user);
             //MAIL STUREN
-            public void createUserEmail(UserPostRequestDto userPostRequestDto) {
-                String body = "Welkom! \n" +
-                        "Bedankt voor het aanmaken van een account en het indienen van uw verzoek. \n" +
-                        "\n" +
-                        "U kunt nu inloggen met het door u gekozen email-adres en wachtwoord. \n" +
-                        "Via uw account kunt u de behandeling van uw aanvraag volgen";
+            //public void createUserEmail(UserPostRequestDto userPostRequestDto) {
+            //    String body = "Welkom! \n" +
+            //            "Bedankt voor het aanmaken van een account en het indienen van uw verzoek. \n" +
+            //            "\n" +
+            //            "U kunt nu inloggen met het door u gekozen email-adres en wachtwoord. \n" +
+            //            "Via uw account kunt u de behandeling van uw aanvraag volgen";
 
-                SimpleMailMessage mail = new SimpleMailMessage();
-                mail.setSubject("Welkom!");
-                mail.setText(body);
-                mail.setTo(userPostRequest.getUsername());
-            };
+            //    SimpleMailMessage mail = new SimpleMailMessage();
+            //    mail.setSubject("Welkom!");
+            //    mail.setText(body);
+            //    mail.setTo(userPostRequest.getUsername());
+            //}
 
             return newUser.getUsername();
         }
@@ -104,8 +105,17 @@ public class UserService {
         else {
             User user = userOptional.get();
             user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            //user.setEnabled(newUser.isEnabled());
             userRepository.save(user);
+            //MAIL STUREN
+            //public void resetUserPassword(UserPostRequestDto userPostRequestDto) {
+            //    String body = "Goedendag, \n" +
+            //            "Uw wachtwoord is gewijzigd. Uw tijdelijke wachtwoord is:" + temporaryPassword +;
+
+            //    SimpleMailMessage mail = new SimpleMailMessage();
+            //    mail.setSubject("Wachtwoord gewijzigd");
+            //    mail.setText(body);
+            //    mail.setTo(.getUsername());
+            //}
         }
     }
 
@@ -197,9 +207,9 @@ public class UserService {
             }
         }
 
-        //else {
-        //   throw new NotAuthorizedException();
-        //}
+        else {
+           throw new NotAuthorizedException();
+        }
     }
 
 }

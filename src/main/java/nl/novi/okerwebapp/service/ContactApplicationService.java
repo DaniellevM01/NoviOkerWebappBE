@@ -21,7 +21,7 @@ public class ContactApplicationService {
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setSubject("Contactaanvraag");
         mail.setText(body);
-        mail.setTo("daniellevmanen@gmail.com");
+        mail.setTo("danielleoker@gmail.com");
         return;
     }
 }
