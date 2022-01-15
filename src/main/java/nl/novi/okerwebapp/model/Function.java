@@ -18,13 +18,13 @@ public class Function {
     private String name;
 
     @Column(nullable = false)
-    private int basicSalary;
+    private int basic_salary;
 
     public Function() {}
-        public Function(int function_id, String name, int basicsalary) {
+        public Function(int function_id, String name, int basic_salary) {
             this.function_id = function_id;
             this.name = name;
-            this.basicSalary = basicsalary;
+            this.basic_salary = basic_salary;
     }
 
     public int getId() {
@@ -43,11 +43,11 @@ public class Function {
         this.name = name;
     }
 
-    public int getBasicSalary() {
-        return basicSalary;
+    public int getBasic_salary() {
+        return basic_salary;
     }
 
-    public void setBasicSalary(int basicsalary) {
-        this.basicSalary = basicsalary;
+    public void setBasic_salary(int basic_salary) {
+        this.basic_salary = basic_salary;
     }
 }

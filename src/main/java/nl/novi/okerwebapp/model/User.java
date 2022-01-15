@@ -19,7 +19,7 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private int telephone_number;
+    private String telephone_number;
 
     @Column(nullable = false)
     private String name;
@@ -85,11 +85,11 @@ public class User {
         this.authorities.removeIf(authority -> authority.getAuthority().equalsIgnoreCase(authorityString));
     }
 
-    public int getTelephonenumber() {
+    public String getTelephonenumber() {
         return telephone_number;
     }
 
-    public void setTelephonenumber(int telephonenumber) {
+    public void setTelephonenumber(String telephonenumber) {
         this.telephone_number = telephonenumber;
     }
 

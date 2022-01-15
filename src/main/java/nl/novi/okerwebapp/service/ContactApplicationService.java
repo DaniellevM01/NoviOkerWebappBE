@@ -1,7 +1,6 @@
 package nl.novi.okerwebapp.service;
 
 import nl.novi.okerwebapp.dto.requests.ContactApplicationRequestDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
