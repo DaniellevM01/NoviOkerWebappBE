@@ -2,8 +2,10 @@ package nl.novi.okerwebapp.service;
 
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationRequestDto;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
+import nl.novi.okerwebapp.model.Vacancy;
 import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.repository.VacancyApplicationRepository;
+import nl.novi.okerwebapp.repository.VacancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,8 @@ public class VacancyApplicationService {
 
     @Autowired
     private VacancyApplicationRepository vacancyApplicationRepository;
+    @Autowired
+    private VacancyRepository vacancyRepository;
 
     public Iterable<VacancyApplication> getVacancyApplications() {
         return vacancyApplicationRepository.findAll();
@@ -26,7 +30,8 @@ public class VacancyApplicationService {
         vacancyApplication.setDescription(vacancyApplicationRequestDto.getDescription());
         //vacancyRequest.setUserid(); => USER_ID VAN INGELOGDE GEBRUIKER
         //vacancyRequest.setFile(); => LES TERUGKIJKEN
-        vacancyApplication.setVacancy(vacancyApplicationRequestDto.getVacancy_id());
+        Vacancy vacancy = vacancyRepository.findById(vacancyApplicationRequestDto.getVacancy_id()).orElseThrow();
+        vacancyApplication.setVacancy(vacancy);
 
         VacancyApplication newVacancyApplication = vacancyApplicationRepository.save(vacancyApplication);
         return newVacancyApplication.getId();

@@ -4,7 +4,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "OfferApplications")
-
 public class OfferApplication {
 
     @Id
@@ -20,7 +19,6 @@ public class OfferApplication {
     private String description;
 
     //fileupload
-    @Id
     @Column(nullable = false)
     private String file;
 
@@ -29,7 +27,7 @@ public class OfferApplication {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User user_id;
+    private User user;
 
     public int getId() {
         return offerApplication_id;

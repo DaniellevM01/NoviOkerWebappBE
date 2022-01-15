@@ -8,8 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ContactApplicationService {
 
-    @Autowired
-
     public void sendContactApplication(ContactApplicationRequestDto contactApplicationRequestDto) {
         String body = "Hallo,\n" +
                 "Deze bezoeker heeft een contactverzoek ingediend:\n" +

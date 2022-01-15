@@ -1,8 +1,11 @@
 package nl.novi.okerwebapp.dto.requests;
 
 
+import javax.validation.constraints.NotBlank;
+
 public class ContactApplicationRequestDto {
 
+    @NotBlank
     private String name;
     private int telephoneNumber;
     private String question;

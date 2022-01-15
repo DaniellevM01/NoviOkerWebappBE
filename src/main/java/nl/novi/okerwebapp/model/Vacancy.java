@@ -6,8 +6,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "Vacancies")
-
 public class Vacancy {
+
     @Id
     @Column(nullable = false)
     private int vacancy_id;
@@ -23,16 +23,15 @@ public class Vacancy {
 
     @OneToMany(
             targetEntity = VacancyApplication.class,
-            mappedBy = "vacancy_id",
             fetch = FetchType.LAZY)
     private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
-    public Vacancy(int id, String title, String description, boolean enabled) {
+    /*public Vacancy(int id, String title, String description, boolean enabled) {
         this.vacancy_id = id;
         this.title = title;
         this.description = description;
         this.enabled = enabled;
-    }
+    }*/
 
     public int getId() {
         return vacancy_id;

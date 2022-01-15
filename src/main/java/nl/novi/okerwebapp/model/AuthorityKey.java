@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class AuthorityKey implements Serializable {
-    private String username;
+    private Integer user_id;
     private String authority;
 
     @Override
@@ -12,13 +12,13 @@ public class AuthorityKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuthorityKey that = (AuthorityKey) o;
-        return username.equals(that.username) &&
+        return user_id.equals(that.user_id) &&
                 authority.equals(that.authority);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, authority);
+        return Objects.hash(user_id, authority);
     }
 
 }
