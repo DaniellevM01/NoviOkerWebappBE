@@ -3,7 +3,7 @@ package nl.novi.okerwebapp.dto.requests;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class VacancyRequestRequestDto {
+public class VacancyApplicationRequestDto {
 
     @NotBlank
     @Size(min=1, max=30, message="status is too long or too short")
