@@ -71,7 +71,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/offerrequests/**").hasRole("USER")
                 .antMatchers("/vacancyrequests/**").hasRole("USER")
                 .antMatchers("/persons/**").hasAnyRole("USER")
-                //.antMatchers(HttpMethod.GET, "hello").authenticated()
+                //.antMatchers(HttpMethod.GET, "hellos").authenticated()
                 //.antMatchers(HttpMethod.GET, "goodbye").permitAll()
                 .anyRequest().permitAll()
                 .and()
