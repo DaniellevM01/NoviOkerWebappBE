@@ -10,22 +10,16 @@ public class OfferApplication {
     @Column(nullable = false)
     private int offer_application_id;
 
-    //moet van userklasse komen
-    //@Id
-    //@Column(nullable = false)
-    //private String user_id;
-
     @Column(nullable = false)
     private String description;
 
-    //fileupload
     @Column(nullable = false)
     private String file;
 
     @Column(nullable = false)
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -36,14 +30,6 @@ public class OfferApplication {
     public void setId(int id) {
         this.offer_application_id = id;
     }
-
-    //public String getUserid() {
-    //    return user_id;
-    //}
-
-    //public void setUserid(String userid) {
-    //    this.user_id = user_id;
-    //}
 
     public String getDescription() {
         return description;
@@ -67,5 +53,13 @@ public class OfferApplication {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

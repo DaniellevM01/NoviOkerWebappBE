@@ -4,11 +4,11 @@ import nl.novi.okerwebapp.dto.requests.OfferApplicationRequestDto;
 import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.service.OfferApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -22,8 +22,10 @@ public class OfferApplicationController {
         return ResponseEntity.ok(offerApplicationService.getOfferApplications());
     }
 
-    @PostMapping(value = "/offerapplications")
-    public ResponseEntity<Object> addOfferApplication(@Valid @RequestBody OfferApplicationRequestDto offerApplicationRequestDto) {
+    @PostMapping(value = "/offerapplications",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> addOfferApplication(OfferApplicationRequestDto offerApplicationRequestDto) {
         int newId = offerApplicationService.addOfferApplication(offerApplicationRequestDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

@@ -2,7 +2,6 @@ package nl.novi.okerwebapp.service;
 
 import nl.novi.okerwebapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.multipart.MultipartFile;
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationRequestDto;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
 import nl.novi.okerwebapp.model.Vacancy;
