@@ -1,6 +1,7 @@
 package nl.novi.okerwebapp.model;
 
 import javax.persistence.*;
+import java.io.File;
 
 @Entity
 @Table(name = "VacancyApplications")
@@ -10,14 +11,9 @@ public class VacancyApplication {
     @Column(nullable = false)
     private int vacancy_application_id;
 
-    //@Id
-    //@Column(nullable = false)
-    //private int user_id;
-
     @Column(nullable = false)
     private String description;
 
-    //file
     @Column(nullable = false)
     private String file;
 
@@ -44,7 +40,7 @@ public class VacancyApplication {
         return user;
     }
 
-    public void setUser(int userid) {
+    public void setUser(User user) {
         this.user = user;
     }
 

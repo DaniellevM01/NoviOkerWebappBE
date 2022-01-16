@@ -4,11 +4,11 @@ import nl.novi.okerwebapp.dto.requests.VacancyApplicationRequestDto;
 import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.service.VacancyApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -22,8 +22,10 @@ public class VacancyApplicationController {
         return ResponseEntity.ok(vacancyApplicationService.getVacancyApplications());
     }
 
-    @PostMapping(value = "/vacancyapplications")
-    public ResponseEntity<Object> addVacancyApplications(@Valid @RequestBody VacancyApplicationRequestDto vacancyApplicationRequestDto) {
+    @PostMapping(value = "/vacancyapplications",
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<Object> addVacancyApplications(VacancyApplicationRequestDto vacancyApplicationRequestDto) {
         int newId = vacancyApplicationService.addVacancyApplication(vacancyApplicationRequestDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

@@ -40,8 +40,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUser(String username) {
-        return userRepository.findById(username);
+    public Optional<User> getUser(int user_id) {
+        return userRepository.findById(user_id);
     }
 
     public String createUser(UserPostRequestDto userPostRequest) {
@@ -88,19 +88,19 @@ public class UserService {
 
     }
 
-    public void deleteUser(String username) {
-        if (userRepository.existsById(username)) {
-            userRepository.deleteById(username);
+    public void deleteUser(Integer user_id) {
+        if (userRepository.existsById(user_id)) {
+            userRepository.deleteById(user_id);
         }
         else {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(user_id.toString());
         }
     }
 
-    public void updateUser(String username, User newUser) {
-        Optional<User> userOptional = userRepository.findById(username);
+    public void updateUser(Integer user_id, User newUser) {
+        Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(user_id.toString());
         }
         else {
             User user = userOptional.get();
@@ -119,10 +119,10 @@ public class UserService {
         }
     }
 
-    public Set<Authority> getAuthorities(String username) {
-        Optional<User> userOptional = userRepository.findById(username);
+    public Set<Authority> getAuthorities(Integer user_id) {
+        Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(user_id.toString());
         }
         else {
             User user = userOptional.get();
@@ -130,10 +130,10 @@ public class UserService {
         }
     }
 
-    public void addAuthority(String username, String authorityString) {
-        Optional<User> userOptional = userRepository.findById(username);
+    public void addAuthority(Integer user_id, String authorityString) {
+        Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(user_id.toString());
         }
         else {
             User user = userOptional.get();
@@ -142,10 +142,10 @@ public class UserService {
         }
     }
 
-    public void removeAuthority(String username, String authorityString) {
-        Optional<User> userOptional = userRepository.findById(username);
+    public void removeAuthority(Integer user_id, String authorityString) {
+        Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isEmpty()) {
-            throw new UserNotFoundException(username);
+            throw new UserNotFoundException(user_id.toString());
         }
         else {
             User user = userOptional.get();
@@ -189,17 +189,17 @@ public class UserService {
         return validPassword;
     }
 
-    public void setPassword(String username, String password) {
-        if (username.equals(getCurrentUserName())) {
+    public void setPassword(Integer user_id, String password) {
+        if (user_id.equals(getCurrentUserName())) {
             if (isValidPassword(password)) {
-                Optional<User> userOptional = userRepository.findById(username);
+                Optional<User> userOptional = userRepository.findById(user_id);
                 if (userOptional.isPresent()) {
                     User user = userOptional.get();
                     user.setPassword(passwordEncoder.encode(password));
                     userRepository.save(user);
                 }
                 else {
-                    throw new UserNotFoundException(username);
+                    throw new UserNotFoundException(user_id.toString());
                 }
             }
             else {
