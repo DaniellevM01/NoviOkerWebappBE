@@ -3,7 +3,7 @@ package nl.novi.okerwebapp.dto.requests;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class VacancyRequestDto {
+public class VacancyGetRequestDto {
 
     @NotBlank
     @Size(min=1, max=30)

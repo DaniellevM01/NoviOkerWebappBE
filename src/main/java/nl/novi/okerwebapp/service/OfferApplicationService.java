@@ -1,7 +1,7 @@
 package nl.novi.okerwebapp.service;
 
 import nl.novi.okerwebapp.repository.UserRepository;
-import nl.novi.okerwebapp.dto.requests.OfferApplicationRequestDto;
+import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
 import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.repository.OfferApplicationRepository;
@@ -33,21 +33,21 @@ public class OfferApplicationService {
         return offerApplicationRepository.findAll();
     }
 
-    public int addOfferApplication(OfferApplicationRequestDto offerApplicationRequestDto) {
+    public int addOfferApplication(OfferApplicationPostRequestDto offerApplicationPostRequestDto) {
 
         OfferApplication offerApplication = new OfferApplication();
-        offerApplication.setStatus(offerApplicationRequestDto.getStatus());
-        offerApplication.setDescription(offerApplicationRequestDto.getDescription());
+        offerApplication.setStatus(offerApplicationPostRequestDto.getStatus());
+        offerApplication.setDescription(offerApplicationPostRequestDto.getDescription());
         offerApplication.setUser(userRepository.findById(1).orElseThrow());
-        if(!offerApplicationRequestDto.getFile().isEmpty()){
+        if(!offerApplicationPostRequestDto.getFile().isEmpty()){
             try{
                 Path root = Paths.get(uploadPath);
                 if (!Files.exists(root)) {
                     Files.createDirectories(Paths.get(uploadPath));
                 }
-                Path copyLocation = root.resolve(offerApplicationRequestDto.getFile().getOriginalFilename());
-                Files.copy(offerApplicationRequestDto.getFile().getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
-                offerApplication.setFile(offerApplicationRequestDto.getFile().getOriginalFilename());
+                Path copyLocation = root.resolve(offerApplicationPostRequestDto.getFile().getOriginalFilename());
+                Files.copy(offerApplicationPostRequestDto.getFile().getInputStream(), copyLocation, StandardCopyOption.REPLACE_EXISTING);
+                offerApplication.setFile(offerApplicationPostRequestDto.getFile().getOriginalFilename());
             }catch (IOException e){
                 throw new RuntimeException("Could not create upload folder!");
             }catch (Exception e){

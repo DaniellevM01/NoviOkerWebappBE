@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class OfferApplicationRequestDto {
+public class OfferApplicationPostRequestDto {
 
     @NotBlank
     @Size(min=1, max=300, message="description is too long or too short")
