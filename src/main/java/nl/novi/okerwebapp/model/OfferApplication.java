@@ -1,6 +1,9 @@
 package nl.novi.okerwebapp.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "OfferApplications")
@@ -18,6 +21,10 @@ public class OfferApplication {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -61,5 +68,21 @@ public class OfferApplication {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int getOffer_application_id() {
+        return offer_application_id;
+    }
+
+    public void setOffer_application_id(int offer_application_id) {
+        this.offer_application_id = offer_application_id;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 }
