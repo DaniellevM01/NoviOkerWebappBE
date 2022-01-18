@@ -1,7 +1,10 @@
 package nl.novi.okerwebapp.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.io.File;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "VacancyApplications")
@@ -19,6 +22,10 @@ public class VacancyApplication {
 
     @Column(nullable = false)
     private String status;
+
+    @Column(nullable = false)
+    @CreationTimestamp
+    private Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vacancy_id", nullable = false)
