@@ -88,4 +88,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping(value = "/resetpassword")
+    public ResponseEntity<Object> resetPassword(@RequestBody String email) {
+        userService.resetUserPassword(email);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }

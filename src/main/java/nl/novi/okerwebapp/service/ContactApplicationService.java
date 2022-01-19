@@ -19,6 +19,7 @@ public class ContactApplicationService {
         mail.setSubject("Contactaanvraag");
         mail.setText(body);
         mail.setTo("danielleoker@gmail.com");
+        //mail.send
         return;
     }
 }

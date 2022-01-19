@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 
 @Service
@@ -34,6 +35,11 @@ public class UserService {
     private String getCurrentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ((UserDetails) authentication.getPrincipal()).getUsername();
+    }
+
+    public Optional<User> getCurrentUser(){
+        // TODO; wat als er geen ingelogde gebruiker is?
+        return userRepository.findByUsername(getCurrentUserName());
     }
 
     public Iterable<User> getUsers() {
@@ -66,26 +72,27 @@ public class UserService {
                 }
             }
             User newUser = userRepository.save(user);
-            //MAIL STUREN
-            //public void createUserEmail(UserPostRequestDto userPostRequestDto) {
-            //    String body = "Welkom! \n" +
-            //            "Bedankt voor het aanmaken van een account en het indienen van uw verzoek. \n" +
-            //            "\n" +
-            //            "U kunt nu inloggen met het door u gekozen email-adres en wachtwoord. \n" +
-            //            "Via uw account kunt u de behandeling van uw aanvraag volgen";
-
-            //    SimpleMailMessage mail = new SimpleMailMessage();
-            //    mail.setSubject("Welkom!");
-            //    mail.setText(body);
-            //    mail.setTo(userPostRequest.getUsername());
-            //}
-
+            createUserEmail(userPostRequest);
             return newUser.getUsername();
         }
         catch (Exception ex) {
             throw new BadRequestException("Cannot create user.");
         }
 
+    }
+
+    private void createUserEmail(UserPostRequestDto userPostRequestDto) {
+        String body = "Welkom! \n" +
+                "Bedankt voor het aanmaken van een account en het indienen van uw verzoek. \n" +
+                "\n" +
+                "U kunt nu inloggen met het door u gekozen email-adres en wachtwoord. \n" +
+                "Via uw account kunt u de behandeling van uw aanvraag volgen";
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setSubject("Welkom!");
+        mail.setText(body);
+        mail.setTo(userPostRequestDto.getUsername());
+        //mail.send
     }
 
     public void deleteUser(Integer user_id) {
@@ -106,17 +113,52 @@ public class UserService {
             User user = userOptional.get();
             user.setPassword(passwordEncoder.encode(newUser.getPassword()));
             userRepository.save(user);
-            //MAIL STUREN
-            //public void resetUserPassword(UserPostRequestDto userPostRequestDto) {
-            //    String body = "Goedendag, \n" +
-            //            "Uw wachtwoord is gewijzigd. Uw tijdelijke wachtwoord is:" + temporaryPassword +;
 
-            //    SimpleMailMessage mail = new SimpleMailMessage();
-            //    mail.setSubject("Wachtwoord gewijzigd");
-            //    mail.setText(body);
-            //    mail.setTo(.getUsername());
-            //}
         }
+    }
+
+    public void resetUserPassword(String email){
+        Optional<User> userOptional = userRepository.findByUsername(email);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(email);
+        }
+        else {
+            String newPassword = generateRandomPassword();
+            User user = userOptional.get();
+            user.setPassword(passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            sendResetUserPasswordMail(user.getUsername(), newPassword);
+        }
+    }
+
+    private String generateRandomPassword(){
+        char[] lowerAlphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        char[] upperAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+        char[] specialCharacters = "@#$%&*!()+=-_".toCharArray();
+
+        StringBuilder password = new StringBuilder();
+        Random random = new Random();
+
+        for(int i = 0; i <= 5; i++){
+            password.append(lowerAlphabet[random.nextInt(lowerAlphabet.length)]);
+            password.append(upperAlphabet[random.nextInt(upperAlphabet.length)]);
+            password.append(specialCharacters[random.nextInt(specialCharacters.length)]);
+            password.append(random.nextInt(9));
+        }
+
+        return password.toString();
+    }
+
+    //MAIL STUREN
+    public void sendResetUserPasswordMail(String email, String newPassword) {
+        String body = "Goedendag, \n" +
+                "Uw wachtwoord is gewijzigd. Uw tijdelijke wachtwoord is:" + newPassword + "\n";
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setSubject("Wachtwoord gewijzigd");
+        mail.setText(body);
+        mail.setTo(email);
+        //mail.send
     }
 
     public Set<Authority> getAuthorities(Integer user_id) {
@@ -190,7 +232,9 @@ public class UserService {
     }
 
     public void setPassword(Integer user_id, String password) {
-        if (user_id.equals(getCurrentUserName())) {
+        //TODO correct user_id
+        User receivedUser = userRepository.findById(user_id).orElseThrow();
+        if (receivedUser.getUsername().equals(getCurrentUserName())) {
             if (isValidPassword(password)) {
                 Optional<User> userOptional = userRepository.findById(user_id);
                 if (userOptional.isPresent()) {
