@@ -1,6 +1,6 @@
 package nl.novi.okerwebapp.controller;
 
-import nl.novi.okerwebapp.dto.requests.OfferApplicationRequestDto;
+import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
 import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.service.OfferApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class OfferApplicationController {
     @PostMapping(value = "/offerapplications",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Object> addOfferApplication(OfferApplicationRequestDto offerApplicationRequestDto) {
-        int newId = offerApplicationService.addOfferApplication(offerApplicationRequestDto);
+    public ResponseEntity<Object> addOfferApplication(OfferApplicationPostRequestDto offerApplicationPostRequestDto) {
+        int newId = offerApplicationService.addOfferApplication(offerApplicationPostRequestDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newId).toUri();

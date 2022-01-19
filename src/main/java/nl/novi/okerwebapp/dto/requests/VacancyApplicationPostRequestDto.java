@@ -5,7 +5,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-public class VacancyApplicationRequestDto {
+public class VacancyApplicationPostRequestDto {
 
     @NotBlank
     @Size(min=1, max=30, message="status is too long or too short")

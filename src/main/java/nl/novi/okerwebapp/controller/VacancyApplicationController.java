@@ -1,6 +1,6 @@
 package nl.novi.okerwebapp.controller;
 
-import nl.novi.okerwebapp.dto.requests.VacancyApplicationRequestDto;
+import nl.novi.okerwebapp.dto.requests.VacancyApplicationPostRequestDto;
 import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.service.VacancyApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,8 @@ public class VacancyApplicationController {
     @PostMapping(value = "/vacancyapplications",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<Object> addVacancyApplications(VacancyApplicationRequestDto vacancyApplicationRequestDto) {
-        int newId = vacancyApplicationService.addVacancyApplication(vacancyApplicationRequestDto);
+    public ResponseEntity<Object> addVacancyApplications(VacancyApplicationPostRequestDto vacancyApplicationPostRequestDto) {
+        int newId = vacancyApplicationService.addVacancyApplication(vacancyApplicationPostRequestDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newId).toUri();
