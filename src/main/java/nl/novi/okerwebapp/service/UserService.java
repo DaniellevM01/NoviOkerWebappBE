@@ -10,6 +10,7 @@ import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,9 @@ public class UserService {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     private String getCurrentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -92,7 +96,7 @@ public class UserService {
         mail.setSubject("Welkom!");
         mail.setText(body);
         mail.setTo(userPostRequestDto.getUsername());
-        //mail.send
+        mailSender.send(mail);
     }
 
     public void deleteUser(Integer user_id) {
@@ -149,7 +153,6 @@ public class UserService {
         return password.toString();
     }
 
-    //MAIL STUREN
     public void sendResetUserPasswordMail(String email, String newPassword) {
         String body = "Goedendag, \n" +
                 "Uw wachtwoord is gewijzigd. Uw tijdelijke wachtwoord is:" + newPassword + "\n";
@@ -158,7 +161,7 @@ public class UserService {
         mail.setSubject("Wachtwoord gewijzigd");
         mail.setText(body);
         mail.setTo(email);
-        //mail.send
+        mailSender.send(mail);
     }
 
     public Set<Authority> getAuthorities(Integer user_id) {
