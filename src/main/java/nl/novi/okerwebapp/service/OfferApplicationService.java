@@ -1,5 +1,7 @@
 package nl.novi.okerwebapp.service;
 
+import nl.novi.okerwebapp.exception.BadRequestException;
+import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.repository.UserRepository;
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
@@ -26,6 +28,9 @@ public class OfferApplicationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Value("${app.upload_location}")
     private String uploadPath;
 
@@ -34,6 +39,14 @@ public class OfferApplicationService {
     }
 
     public int addOfferApplication(OfferApplicationPostRequestDto offerApplicationPostRequestDto) {
+        User user = userService.getCurrentUser().orElseThrow();
+        boolean is_customer = user.getAuthorities()
+                .stream()
+                .anyMatch(authority -> authority.getAuthority().equalsIgnoreCase("CUSTOMER"));
+
+        if(!is_customer){
+            throw new BadRequestException("User is not a customer!");
+        }
 
         OfferApplication offerApplication = new OfferApplication();
         offerApplication.setStatus(offerApplicationPostRequestDto.getStatus());
