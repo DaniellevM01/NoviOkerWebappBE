@@ -24,9 +24,8 @@ public class User {
     @Column(nullable = false)
     private String name;
 
-    // Deze weghalen?
-    //@Column(nullable = false)
-    //private boolean enabled = true;
+    @Column(nullable = false)
+    private boolean enabled = true;
 
     @OneToMany(
             targetEntity = Authority.class,
@@ -36,7 +35,7 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
-    /*@OneToMany(
+    @OneToMany(
             targetEntity = OfferApplication.class,
             mappedBy = "user_id",
             fetch = FetchType.LAZY)
@@ -46,10 +45,7 @@ public class User {
             targetEntity = VacancyApplication.class,
             mappedBy = "user_id",
             fetch = FetchType.LAZY)
-    private Set<VacancyApplication> vacancyApplications = new HashSet<>();*/
-
-
-    // getters and setters
+    private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
     public String getUsername() {
         return username;
@@ -67,13 +63,13 @@ public class User {
         this.password = password;
     }
 
-    //public boolean isEnabled() {
-    //    return enabled;
-    //}
+    public boolean isEnabled() {
+        return enabled;
+    }
 
-    //public void setEnabled(boolean enabled) {
-    //    this.enabled = enabled;
-    //}
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public Set<Authority> getAuthorities() { return authorities; }
 

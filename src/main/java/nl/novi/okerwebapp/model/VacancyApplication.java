@@ -3,7 +3,6 @@ package nl.novi.okerwebapp.model;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import java.io.File;
 import java.sql.Timestamp;
 
 @Entity
@@ -81,5 +80,21 @@ public class VacancyApplication {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public int getVacancy_application_id() {
+        return vacancy_application_id;
+    }
+
+    public void setVacancy_application_id(int vacancy_application_id) {
+        this.vacancy_application_id = vacancy_application_id;
     }
 }
