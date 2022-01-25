@@ -36,14 +36,12 @@ public class User {
     private Set<Authority> authorities = new HashSet<>();
 
     @OneToMany(
-            targetEntity = OfferApplication.class,
-            mappedBy = "user_id",
+            mappedBy = "user",
             fetch = FetchType.LAZY)
     private Set<OfferApplication> offerApplications = new HashSet<>();
 
     @OneToMany(
-            targetEntity = VacancyApplication.class,
-            mappedBy = "user_id",
+            mappedBy = "user",
             fetch = FetchType.LAZY)
     private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
