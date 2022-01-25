@@ -1,5 +1,6 @@
 package nl.novi.okerwebapp.controller;
 
+import nl.novi.okerwebapp.dto.requests.OfferApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
 import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.service.OfferApplicationService;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
@@ -35,8 +37,8 @@ public class OfferApplicationController {
     }
 
     @PatchMapping(value = "/offerapplications/{id}")
-    public ResponseEntity<Object> partialUpdateOfferApplications(@PathVariable int id, @RequestBody OfferApplication offerapplication) {
-        offerApplicationService.partialUpdateOfferApplication(id, offerapplication);
+    public ResponseEntity<Object> partialUpdateOfferApplications(@PathVariable int id, @Valid @RequestBody OfferApplicationPatchRequestDto offerApplicationPatchRequestDto) {
+        offerApplicationService.partialUpdateOfferApplication(id, offerApplicationPatchRequestDto);
         return ResponseEntity.noContent().build();
     }
 

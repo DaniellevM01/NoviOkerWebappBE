@@ -1,5 +1,6 @@
 package nl.novi.okerwebapp.controller;
 
+import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationPostRequestDto;
 import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.service.VacancyApplicationService;
@@ -35,8 +36,8 @@ public class VacancyApplicationController {
     }
 
     @PatchMapping(value = "/vacancyapplications/{id}")
-    public ResponseEntity<Object> partialUpdateVacancyApplications(@PathVariable int id, @RequestBody VacancyApplication vacancyApplication) {
-        vacancyApplicationService.partialUpdateVacancyApplication(id, vacancyApplication);
+    public ResponseEntity<Object> partialUpdateVacancyApplications(@PathVariable int id, @RequestBody VacancyApplicationPatchRequestDto vacancyApplicationPatchRequestDto ){
+        vacancyApplicationService.partialUpdateVacancyApplication(id, vacancyApplicationPatchRequestDto);
         return ResponseEntity.noContent().build();
     }
 
