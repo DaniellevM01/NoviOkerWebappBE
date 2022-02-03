@@ -30,7 +30,7 @@ public class User {
 
     @OneToMany(
             targetEntity = Authority.class,
-            mappedBy = "user_id",
+            //mappedBy = "username",
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER)
@@ -45,6 +45,8 @@ public class User {
             mappedBy = "user",
             fetch = FetchType.LAZY)
     private Set<VacancyApplication> vacancyApplications = new HashSet<>();
+
+    public Integer getUserId(){ return user_id; }
 
     public String getUsername() {
         return username;
@@ -73,7 +75,7 @@ public class User {
     public Set<Authority> getAuthorities() { return authorities; }
 
     public void addAuthority(String authorityString) {
-        this.authorities.add(new Authority(this.user_id, authorityString));
+        this.authorities.add(new Authority(this.username, authorityString));
     }
 
     public void removeAuthority(String authorityString) {

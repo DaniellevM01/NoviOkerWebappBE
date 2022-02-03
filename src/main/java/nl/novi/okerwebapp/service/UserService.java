@@ -1,6 +1,9 @@
 package nl.novi.okerwebapp.service;
 
+import nl.novi.okerwebapp.dto.requests.AuthenticationRequestDto;
 import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.responses.AuthenticationResponseDto;
+import nl.novi.okerwebapp.dto.responses.UserCreateResponseDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.exception.InvalidPasswordException;
 import nl.novi.okerwebapp.exception.NotAuthorizedException;
@@ -26,11 +29,13 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final UserAuthenticateService userAuthenticateService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserAuthenticateService userAuthenticateService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userAuthenticateService = userAuthenticateService;
     }
 
     @Autowired
@@ -54,7 +59,7 @@ public class UserService {
         return userRepository.findById(user_id);
     }
 
-    public String createUser(UserPostRequestDto userPostRequest) {
+    public UserCreateResponseDto createUser(UserPostRequestDto userPostRequest) {
         if(!isValidUsername(userPostRequest.getUsername()) || !isValidPassword(userPostRequest.getPassword())) {
             throw new BadRequestException("Username or password does not match required standards");
         }
@@ -65,19 +70,22 @@ public class UserService {
             User user = new User();
             user.setUsername(userPostRequest.getUsername());
             user.setPassword(encryptedPassword);
-            user.addAuthority("ROLE_USER");
-            for (String s : userPostRequest.getAuthorities()) {
-                if (!s.startsWith("ROLE_")) {
-                    s = "ROLE_" + s;
-                }
-                s = s.toUpperCase();
-                if (!s.equals("ROLE_USER")) {
-                    user.addAuthority(s);
-                }
-            }
+            user.setEnabled(userPostRequest.isEnabled());
+            user.setName(userPostRequest.getName());
+            user.setTelephonenumber(userPostRequest.getTelephone_number());
             User newUser = userRepository.save(user);
+
+            newUser.addAuthority("USER");
+            userRepository.save(user);
+
             createUserEmail(userPostRequest);
-            return newUser.getUsername();
+
+            AuthenticationRequestDto authenticationRequest = new AuthenticationRequestDto();
+            authenticationRequest.setUsername(userPostRequest.getUsername());
+            authenticationRequest.setPassword(userPostRequest.getPassword());
+            AuthenticationResponseDto authResult = userAuthenticateService.authenticateUser(authenticationRequest);
+
+            return new UserCreateResponseDto(authResult.getJwt(), user.getUsername());
         }
         catch (Exception ex) {
             throw new BadRequestException("Cannot create user.");
@@ -173,6 +181,22 @@ public class UserService {
             User user = userOptional.get();
             return user.getAuthorities();
         }
+    }
+
+    public boolean verifyAuthority(Integer user_id, String authorityString){
+        Set<Authority> authorities = getAuthorities(user_id);
+        if(authorities.isEmpty() || authorities.stream().allMatch(authority -> authority.getAuthority().equalsIgnoreCase("USER"))){
+            // Voeg 'm toe
+            Optional<User> userOptional = userRepository.findById(user_id);
+            User user = userOptional.get();
+
+            user.addAuthority(authorityString);
+            userRepository.save(user);
+
+            return true;
+        }
+
+        return authorities.stream().anyMatch(authority -> authority.getAuthority().equalsIgnoreCase(authorityString));
     }
 
     public void addAuthority(Integer user_id, String authorityString) {

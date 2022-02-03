@@ -18,7 +18,6 @@ public class OfferApplicationPostRequestDto {
     @NotBlank
     private MultipartFile file;
 
-
     public String getDescription() {
         return description;
     }
@@ -42,4 +41,5 @@ public class OfferApplicationPostRequestDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
 }

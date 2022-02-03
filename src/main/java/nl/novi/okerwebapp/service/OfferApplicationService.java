@@ -40,11 +40,8 @@ public class OfferApplicationService {
     }
 
     public int addOfferApplication(OfferApplicationPostRequestDto offerApplicationPostRequestDto) {
-        //User user = userService.getCurrentUser().orElseThrow();
-        User user = userService.getUser(1).orElseThrow();
-        boolean is_customer = user.getAuthorities()
-                .stream()
-                .anyMatch(authority -> authority.getAuthority().equalsIgnoreCase("CUSTOMER"));
+        User user = (User)this.userService.getCurrentUser().orElseThrow();
+        boolean is_customer = this.userService.verifyAuthority(user.getUserId(), "CUSTOMER");
 
         if(!is_customer){
             throw new BadRequestException("User is not a customer!");

@@ -52,5 +52,6 @@ public class VacancyApplicationPostRequestDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
 }
 
