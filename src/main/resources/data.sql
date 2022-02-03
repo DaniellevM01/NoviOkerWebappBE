@@ -25,5 +25,7 @@ VALUES
 
 
 --INSERT INTO vacancy_applications(vacancy_application_id, user_id??, description, file, status)
+--(9991,9993, 'hier moet een beschrijving', file, 'Ingediend');
 
 --INSERT INTO offer_applications (offerApplication_id, user_id??, description, file, status)
+--(9992,9992, 'hier moet een beschrijving', file, 'Ingediend');

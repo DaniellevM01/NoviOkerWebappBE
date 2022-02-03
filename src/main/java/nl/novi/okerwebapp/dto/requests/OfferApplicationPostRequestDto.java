@@ -18,6 +18,8 @@ public class OfferApplicationPostRequestDto {
     @NotBlank
     private MultipartFile file;
 
+    @NotBlank
+    private String jwt;
 
     public String getDescription() {
         return description;
@@ -42,4 +44,8 @@ public class OfferApplicationPostRequestDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+    public String getJwt() { return jwt; }
+
+    public void setJwt(String jwt) { this.jwt = jwt; }
 }
