@@ -65,16 +65,19 @@ public class UserService {
             User user = new User();
             user.setUsername(userPostRequest.getUsername());
             user.setPassword(encryptedPassword);
+            user.setEnabled(userPostRequest.setEnabled(true));
+            user.setName(userPostRequest.getName());
+            user.setTelephonenumber(userPostRequest.getTelephone_number());
             user.addAuthority("ROLE_USER");
-            for (String s : userPostRequest.getAuthorities()) {
-                if (!s.startsWith("ROLE_")) {
-                    s = "ROLE_" + s;
-                }
-                s = s.toUpperCase();
-                if (!s.equals("ROLE_USER")) {
-                    user.addAuthority(s);
-                }
-            }
+            //for (String s : userPostRequest.getAuthorities()) {
+            //    if (!s.startsWith("ROLE_")) {
+            //        s = "ROLE_" + s;
+            //    }
+            //    s = s.toUpperCase();
+            //    if (!s.equals("ROLE_USER")) {
+            //        user.addAuthority(s);
+            //    }
+            //}
             User newUser = userRepository.save(user);
             createUserEmail(userPostRequest);
             return newUser.getUsername();
