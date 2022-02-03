@@ -6,15 +6,16 @@ VALUES
 
 INSERT INTO users(user_id, username, password, telephone_number, name, enabled)
 VALUES
-(1, 'danielleoker@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle Admin', true);
---(2, 'okerofferapplication@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle OfferApplication'),
---(3, 'okervacancyapplication@gmail.com' '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle VacancyApplication');
+(1, 'danielleoker@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle Admin', true),
+(2, 'okerofferapplication@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle OfferApplication', true),
+(3, 'okervacancyapplication@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle VacancyApplication', true);
 
---INSERT INTO authorities (user_id, authority)
---VALUES
---(1, 'admin', 'ROLE_USER'),
---(1, 'admin', 'ROLE_ADMIN'),
---(2, 'ROLE_USER');
+INSERT INTO authorities (user_id, authority)
+VALUES
+(1, 'ROLE_USER'),
+(1, 'ROLE_ADMIN'),
+(2, 'ROLE_USER'),
+(3, 'ROLE_USER');
 
 
 --INSERT INTO vacancy_applications(vacancy_application_id, user_id??, description, file, status)
