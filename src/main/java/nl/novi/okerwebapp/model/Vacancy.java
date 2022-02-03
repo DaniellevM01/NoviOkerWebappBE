@@ -9,6 +9,7 @@ import java.util.Set;
 public class Vacancy {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private int vacancy_id;
 

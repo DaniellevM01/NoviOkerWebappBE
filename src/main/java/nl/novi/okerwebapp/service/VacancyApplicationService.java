@@ -1,5 +1,6 @@
 package nl.novi.okerwebapp.service;
 
+import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.model.User;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,14 +74,14 @@ public class VacancyApplicationService {
         return newVacancyApplication.getId();
     }
 
-    public void partialUpdateVacancyApplication(int id, VacancyApplication vacancyApplication) {
-        Optional<VacancyApplication> optionalOfferRequest = vacancyApplicationRepository.findById(id);
+    public void partialUpdateVacancyApplication(int id, VacancyApplicationPatchRequestDto vacancyApplicationPatchRequestDto) {
+        Optional<VacancyApplication> optionalVacancyRequest = vacancyApplicationRepository.findById(id);
 
-        if (optionalOfferRequest.isPresent()) {
+        if (optionalVacancyRequest.isPresent()) {
             VacancyApplication storedVacancyApplication = vacancyApplicationRepository.findById(id).orElse(null);
 
-            if (vacancyApplication.getStatus() != null && !vacancyApplication.getStatus().isEmpty()) {
-                storedVacancyApplication.setStatus(vacancyApplication.getStatus());
+            if (vacancyApplicationPatchRequestDto.getStatus() != null && !vacancyApplicationPatchRequestDto.getStatus().isEmpty()) {
+                storedVacancyApplication.setStatus(vacancyApplicationPatchRequestDto.getStatus());
             }
             vacancyApplicationRepository.save(storedVacancyApplication);
 

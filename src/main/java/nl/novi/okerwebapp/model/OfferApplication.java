@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 public class OfferApplication {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private int offer_application_id;
 

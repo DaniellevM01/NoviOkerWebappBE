@@ -1,5 +1,6 @@
 package nl.novi.okerwebapp.service;
 
+import nl.novi.okerwebapp.dto.requests.OfferApplicationPatchRequestDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.repository.UserRepository;
@@ -72,14 +73,14 @@ public class OfferApplicationService {
         return newOfferApplication.getId();
     }
 
-    public void partialUpdateOfferApplication(int id, OfferApplication offerApplication) {
+    public void partialUpdateOfferApplication(int id, OfferApplicationPatchRequestDto offerApplicationPatchRequestDto) {
         Optional<OfferApplication> optionalOfferApplication = offerApplicationRepository.findById(id);
 
         if (optionalOfferApplication.isPresent()) {
             OfferApplication storedOfferApplication = offerApplicationRepository.findById(id).orElse(null);
 
-            if (offerApplication.getStatus() != null && !offerApplication.getStatus().isEmpty()) {
-                storedOfferApplication.setStatus(offerApplication.getStatus());
+            if (offerApplicationPatchRequestDto.getStatus() != null && !offerApplicationPatchRequestDto.getStatus().isEmpty()) {
+                storedOfferApplication.setStatus(offerApplicationPatchRequestDto.getStatus());
             }
             offerApplicationRepository.save(storedOfferApplication);
 

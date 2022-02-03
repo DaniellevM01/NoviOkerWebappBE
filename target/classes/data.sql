@@ -10,9 +10,11 @@ VALUES
 --(2, 'okerofferapplication@gmail.com', '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle OfferApplication'),
 --(3, 'okervacancyapplication@gmail.com' '$2a$10$wPHxwfsfTnOJAdgYcerBt.utdAvC24B/DWfuXfzKBSDHO0etB1ica' , '0639861015' , 'Danielle VacancyApplication');
 
---INSERT INTO authorities (user_id, authority)
---VALUES
---(1, 'admin', 'ROLE_USER'),
+INSERT INTO authorities (user_id, authority)
+VALUES
+(1, 'CUSTOMER'),
+(1, 'ADMIN'),
+(1, 'SOLLICITOR');
 --(1, 'admin', 'ROLE_ADMIN'),
 --(2, 'ROLE_USER');
 

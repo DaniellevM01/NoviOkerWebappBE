@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 
 public class VacancyApplication {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     private int vacancy_application_id;
 
