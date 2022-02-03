@@ -2,6 +2,7 @@ package nl.novi.okerwebapp.controller;
 
 
 import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.responses.UserCreateResponseDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
 import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.service.UserService;
@@ -35,16 +36,10 @@ public class UserController {
     }
 
     @PostMapping(value = "")
-    public ResponseEntity<Object> createUser(@RequestBody UserPostRequestDto user) {
-        String newUsername = userService.createUser(user);
+    public ResponseEntity<?> createUser(@RequestBody UserPostRequestDto user) {
+        UserCreateResponseDto newUserDto = userService.createUser(user);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{username}")
-                .buildAndExpand(newUsername)
-                .toUri();
-
-        return ResponseEntity.created(location).build();
+        return ResponseEntity.ok(newUserDto);
     }
 
     @PutMapping(value = "/{user_id}")

@@ -39,10 +39,8 @@ public class VacancyApplicationService {
     }
 
     public int addVacancyApplication(VacancyApplicationPostRequestDto vacancyApplicationPostRequestDto) {
-        User user = userService.getCurrentUser().orElseThrow();
-        boolean is_sollicitor = user.getAuthorities()
-                .stream()
-                .anyMatch(authority -> authority.getAuthority().equalsIgnoreCase("SOLLICITOR"));
+        User user = (User)this.userService.getCurrentUser().orElseThrow();
+        boolean is_sollicitor = this.userService.verifyAuthority(user.getUserId(), "SOLLICITOR");
 
         if(!is_sollicitor){
             throw new BadRequestException("User is not a sollicitor!");
