@@ -21,9 +21,6 @@ public class VacancyApplicationPostRequestDto {
     @NotBlank
     private MultipartFile file;
 
-    @NotBlank
-    private String jwt;
-
     public String getStatus() {
         return status;
     }
@@ -56,8 +53,5 @@ public class VacancyApplicationPostRequestDto {
         this.file = file;
     }
 
-    public String getJwt() { return jwt; }
-
-    public void setJwt(String jwt) { this.jwt = jwt; }
 }
 

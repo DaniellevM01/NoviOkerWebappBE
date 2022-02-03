@@ -10,6 +10,7 @@ public class Authority implements Serializable{
 
     @Id
     @Column(nullable = false)
+    @JoinColumn(name = "username")
     private String username;
 
     @Id
