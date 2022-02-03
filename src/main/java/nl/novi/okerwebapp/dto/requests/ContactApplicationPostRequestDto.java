@@ -23,7 +23,7 @@ public class ContactApplicationPostRequestDto {
         return telephone_number;
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
+    public void setTelephoneNumber(String telephone_number) {
         this.telephone_number = telephone_number;
     }
 

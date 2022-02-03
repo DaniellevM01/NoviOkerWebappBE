@@ -1,5 +1,7 @@
 package nl.novi.okerwebapp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -7,6 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name = "OfferApplications")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class OfferApplication {
 
     @Id
@@ -28,6 +31,7 @@ public class OfferApplication {
     private Timestamp timestamp;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
