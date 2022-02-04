@@ -34,14 +34,16 @@ public class UserControllerTests {
     @Test
     @WithMockUser(username = "ADMIN", authorities = {"ADMIN", "USER"})
     public void testEndpointGetUsers() throws Exception {
-
+        //Arrange
         User user = new User();
         user.setName("Danielle van Manen");
         user.setTelephonenumber("09009696");
         List<User> allUsers = Arrays.asList(user);
 
+        //Act
         given(userService.getUsers()).willReturn(allUsers);
 
+        //Assert
         mvc.perform(get("/users")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
