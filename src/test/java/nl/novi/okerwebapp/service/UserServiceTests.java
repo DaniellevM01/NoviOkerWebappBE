@@ -114,19 +114,24 @@ public class UserServiceTests {
     public void setPasswordTest() {
         //Arrange
         User user = new User();
+        user.setUserId(1);
         user.setUsername("danielleoker@gmail.com");
 
+        UserService userServiceSpy = Mockito.spy(userService);
+
         Mockito
-                .when(userRepository.findByUsername(user.getUsername()))
-                .thenReturn(java.util.Optional.of(user));
+                .when(userRepository.findById(1))
+                .thenReturn(Optional.of(user));
+
+        Mockito.doReturn("danielleoker@gmail.com").when(userServiceSpy).getCurrentUserName();
 
         //Act
-        userService.setPassword(9991, "Krokodillentent123!");
+        userServiceSpy.setPassword(1, "Krokodillentent123!");
         Mockito.verify(userRepository).save(userCaptor.capture());
 
         User saved_user = userCaptor.getValue();
 
         //Assert
-        assertEquals(user.getPassword(), saved_user.getPassword());
+        assertEquals(user.getUsername(), saved_user.getUsername());
     }
 }
