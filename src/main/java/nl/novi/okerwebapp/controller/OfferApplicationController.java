@@ -20,7 +20,7 @@ public class OfferApplicationController {
     private OfferApplicationService offerApplicationService;
 
     @GetMapping(value = "/offerapplications")
-    public ResponseEntity<Object> getOfferApplications() {
+    public ResponseEntity getOfferApplications() {
         return ResponseEntity.ok(offerApplicationService.getOfferApplications());
     }
 

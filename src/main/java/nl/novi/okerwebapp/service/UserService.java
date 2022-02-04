@@ -2,6 +2,7 @@ package nl.novi.okerwebapp.service;
 
 import nl.novi.okerwebapp.dto.requests.AuthenticationRequestDto;
 import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.requests.UserPutRequestDto;
 import nl.novi.okerwebapp.dto.responses.AuthenticationResponseDto;
 import nl.novi.okerwebapp.dto.responses.UserCreateResponseDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
@@ -116,16 +117,28 @@ public class UserService {
         }
     }
 
-    public void updateUser(Integer user_id, User newUser) {
+    public void updateUser(Integer user_id, UserPutRequestDto newUser) {
+        Optional<User> currentUser = getCurrentUser();
+        if(currentUser.isEmpty()){
+            throw new NotAuthorizedException();
+        }
+
         Optional<User> userOptional = userRepository.findById(user_id);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException(user_id.toString());
         }
-        else {
-            User user = userOptional.get();
-            user.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            userRepository.save(user);
 
+        if(
+                currentUser.get().getUserId() == userOptional.get().getUserId() ||
+                currentUser.get().getAuthorities().stream().anyMatch(authority -> authority.getAuthority().equalsIgnoreCase("ADMIN"))
+        ){
+            User user = userOptional.get();
+            user.setName(newUser.getName());
+            user.setTelephonenumber(newUser.getTelephoneNumber());
+            userRepository.save(user);
+        }
+        else {
+            throw new NotAuthorizedException();
         }
     }
 
