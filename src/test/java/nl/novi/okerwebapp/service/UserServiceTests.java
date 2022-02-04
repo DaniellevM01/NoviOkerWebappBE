@@ -1,6 +1,15 @@
 package nl.novi.okerwebapp.service;
 
+import nl.novi.okerwebapp.dto.requests.AuthenticationRequestDto;
+import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
+import nl.novi.okerwebapp.dto.requests.UserPutRequestDto;
+import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
+import nl.novi.okerwebapp.dto.responses.AuthenticationResponseDto;
+import nl.novi.okerwebapp.dto.responses.UserCreateResponseDto;
+import nl.novi.okerwebapp.exception.RecordNotFoundException;
+import nl.novi.okerwebapp.exception.UserNotFoundException;
 import nl.novi.okerwebapp.model.User;
+import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,6 +39,9 @@ public class UserServiceTests {
 
     @Mock
     PasswordEncoder passwordEncoder;
+
+    @Mock
+    UserAuthenticateService userAuthenticateService;
 
     @Mock
     JavaMailSender mailSender;
@@ -134,4 +146,167 @@ public class UserServiceTests {
         //Assert
         assertEquals(user.getUsername(), saved_user.getUsername());
     }
+
+    @Test
+    public void createUser() {
+        //Arrange
+        UserPostRequestDto userPostRequestDto = new UserPostRequestDto();
+        userPostRequestDto.setUsername("danielleoker@gmail.com");
+        userPostRequestDto.setPassword("DitiseenAppelOnderDeGrond132@");
+        userPostRequestDto.setName("Ali .B");
+        userPostRequestDto.setEnabled(true);
+
+        AuthenticationResponseDto authResult = new AuthenticationResponseDto("GEENECHTEJWT");
+
+        //Act
+        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
+
+        Mockito.when(userRepository.save(Mockito.any(User.class)))
+                .thenAnswer(i -> i.getArguments()[0]);
+
+        Mockito
+                .when(userAuthenticateService.authenticateUser(any(AuthenticationRequestDto.class)))
+                .thenReturn(authResult);
+
+        UserCreateResponseDto response = userService.createUser(userPostRequestDto);
+
+        //Assert
+        assertEquals(userPostRequestDto.getUsername(), response.getUsername());
+        assertEquals("GEENECHTEJWT", response.getJwt());
+    }
+
+    @Test
+    public void updateUser(){
+        //Arrange
+        User user = new User();
+        user.setUserId(1);
+        user.setUsername("danielleoker@gmail.com");
+        user.setName("Danielle");
+        user.setTelephonenumber("08008844");
+
+        UserPutRequestDto userPutRequestDto = new UserPutRequestDto("Peter", "09009696");
+
+
+        Mockito
+                .when(userRepository.findByUsername(user.getUsername()))
+                .thenReturn(java.util.Optional.of(user));
+
+        Mockito
+                .when(userRepository.findById(user.getUserId()))
+                .thenReturn(java.util.Optional.of(user));
+
+        UserService userServiceSpy = Mockito.spy(userService);
+
+        Mockito.doReturn(user.getUsername()).when(userServiceSpy).getCurrentUserName();
+
+        //Act
+        userServiceSpy.updateUser(user.getUserId(), userPutRequestDto);
+        Mockito.verify(userRepository).save(userCaptor.capture());
+
+        User saved_user = userCaptor.getValue();
+
+        //Assert
+        assertNotEquals("Danielle", saved_user.getName());
+        assertNotEquals("08008844", saved_user.getTelephonenumber());
+        assertEquals(userPutRequestDto.getName(), saved_user.getName());
+
+        assertThrows(UserNotFoundException.class, () -> { userServiceSpy.updateUser(91000, userPutRequestDto);});
+    }
+
+    @Test
+    public void verifyNewUserAuthority() {
+        //Arrange
+        User user = new User();
+        user.setUserId(1);
+        user.addAuthority("USER");
+
+        Mockito
+                .when(userRepository.findById(user.getUserId()))
+                .thenReturn(Optional.of(user));
+
+        //Act
+        Boolean result = userService.verifyAuthority(user.getUserId(), "APPEL");
+        Mockito.verify(userRepository).save(userCaptor.capture());
+
+        User saved_user = userCaptor.getValue();
+
+        //Assert
+        assertTrue(result);
+        assertEquals(2, saved_user.getAuthorities().size());
+    }
+
+    @Test
+    public void verifyExistingUserAuthority() {
+        //Arrange
+        User user = new User();
+        user.setUserId(1);
+        user.addAuthority("USER");
+        user.addAuthority("CUSTOMER");
+
+
+        Mockito
+                .when(userRepository.findById(user.getUserId()))
+                .thenReturn(Optional.of(user));
+
+        //Act
+        Boolean result = userService.verifyAuthority(user.getUserId(), "APPEL");
+
+        //Assert
+        assertFalse(result);
+    }
+
+    @Test
+    public void removeAuthority() {
+        //Arrange
+        User user = new User();
+        user.setUserId(1);
+        user.addAuthority("USER");
+        user.addAuthority("CUSTOMER");
+
+
+        Mockito
+                .when(userRepository.findById(user.getUserId()))
+                .thenReturn(Optional.of(user));
+
+        //Act
+        userService.removeAuthority(user.getUserId(), "CUSTOMER");
+        Mockito.verify(userRepository).save(userCaptor.capture());
+
+        User saved_user = userCaptor.getValue();
+        //Assert
+        assertEquals(1, saved_user.getAuthorities().size());
+    }
+
+    @Test
+    public void deleteNotExistsUser() {
+        //Arrange
+        Mockito
+                .when(userRepository.existsById(1))
+                .thenReturn(false);
+
+        //Act
+
+        //Assert
+        assertThrows(UserNotFoundException.class, () -> {
+            userService.deleteUser(1);
+        });
+    }
+
+    @Test
+    public void deleteExistsUser() {
+        //Arrange
+        Mockito
+                .when(userRepository.existsById(1))
+                .thenReturn(true);
+
+        doNothing().when(userRepository).deleteById(any(Integer.class));
+
+        //Act
+
+        //Assert
+        assertDoesNotThrow(() -> {
+            userService.deleteUser(1);
+        });
+    }
+
 }

@@ -200,12 +200,7 @@ public class UserService {
         Set<Authority> authorities = getAuthorities(user_id);
         if(authorities.isEmpty() || authorities.stream().allMatch(authority -> authority.getAuthority().equalsIgnoreCase("USER"))){
             // Voeg 'm toe
-            Optional<User> userOptional = userRepository.findById(user_id);
-            User user = userOptional.get();
-
-            user.addAuthority(authorityString);
-            userRepository.save(user);
-
+            addAuthority(user_id, authorityString);
             return true;
         }
 
