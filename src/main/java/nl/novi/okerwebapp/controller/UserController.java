@@ -36,6 +36,11 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUser(user_id));
     }
 
+    @GetMapping(value = "/currentuser")
+    public ResponseEntity<Object> getCurrentUser() {
+        return ResponseEntity.ok().body(userService.getCurrentUser());
+    }
+
     @PostMapping(value = "")
     public ResponseEntity<?> createUser(@RequestBody UserPostRequestDto user) {
         UserCreateResponseDto newUserDto = userService.createUser(user);
