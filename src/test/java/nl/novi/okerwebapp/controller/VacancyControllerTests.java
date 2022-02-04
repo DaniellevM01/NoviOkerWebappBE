@@ -1,9 +1,4 @@
-package controllerTests;
-
-import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatus;
-
-import java.net.http.HttpResponse;
+package nl.novi.okerwebapp.controller;
 
 class VacancyControllerTests {
 

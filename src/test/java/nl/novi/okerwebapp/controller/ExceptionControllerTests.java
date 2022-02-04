@@ -1,4 +1,4 @@
-package controllerTests;
+package nl.novi.okerwebapp.controller;
 
 public class ExceptionControllerTests {
 }
