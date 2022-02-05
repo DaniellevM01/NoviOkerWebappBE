@@ -1,18 +1,14 @@
 package nl.novi.okerwebapp.controller;
 
-
 import nl.novi.okerwebapp.dto.requests.UserPostRequestDto;
 import nl.novi.okerwebapp.dto.requests.UserPutRequestDto;
 import nl.novi.okerwebapp.dto.responses.UserCreateResponseDto;
 import nl.novi.okerwebapp.exception.BadRequestException;
-import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.net.URI;
 import java.util.Map;
 
 @RestController
@@ -94,6 +90,4 @@ public class UserController {
         userService.resetUserPassword(email);
         return ResponseEntity.noContent().build();
     }
-
-
 }

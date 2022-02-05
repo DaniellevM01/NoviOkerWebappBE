@@ -30,25 +30,25 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private JavaMailSender mailSender;
+
     private final UserAuthenticateService userAuthenticateService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserAuthenticateService userAuthenticateService) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JavaMailSender mailSender, UserAuthenticateService userAuthenticateService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
         this.userAuthenticateService = userAuthenticateService;
     }
 
-    @Autowired
-    private JavaMailSender mailSender;
 
-    private String getCurrentUserName() {
+    public String getCurrentUserName() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ((UserDetails) authentication.getPrincipal()).getUsername();
     }
 
     public Optional<User> getCurrentUser(){
-        // TODO; wat als er geen ingelogde gebruiker is?
         return userRepository.findByUsername(getCurrentUserName());
     }
 
@@ -89,9 +89,8 @@ public class UserService {
             return new UserCreateResponseDto(authResult.getJwt(), user.getUsername());
         }
         catch (Exception ex) {
-            throw new BadRequestException("Cannot create user.");
+            throw new BadRequestException("Can not create user.");
         }
-
     }
 
     private void createUserEmail(UserPostRequestDto userPostRequestDto) {
@@ -200,12 +199,7 @@ public class UserService {
         Set<Authority> authorities = getAuthorities(user_id);
         if(authorities.isEmpty() || authorities.stream().allMatch(authority -> authority.getAuthority().equalsIgnoreCase("USER"))){
             // Voeg 'm toe
-            Optional<User> userOptional = userRepository.findById(user_id);
-            User user = userOptional.get();
-
-            user.addAuthority(authorityString);
-            userRepository.save(user);
-
+            addAuthority(user_id, authorityString);
             return true;
         }
 
@@ -272,7 +266,6 @@ public class UserService {
     }
 
     public void setPassword(Integer user_id, String password) {
-        //TODO correct user_id
         User receivedUser = userRepository.findById(user_id).orElseThrow();
         if (receivedUser.getUsername().equals(getCurrentUserName())) {
             if (isValidPassword(password)) {
@@ -290,7 +283,6 @@ public class UserService {
                 throw new InvalidPasswordException();
             }
         }
-
         else {
            throw new NotAuthorizedException();
         }

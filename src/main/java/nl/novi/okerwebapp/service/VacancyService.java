@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-
 @Service
 public class VacancyService {
 
@@ -28,6 +27,5 @@ public class VacancyService {
         else {
             throw new RecordNotFoundException("ID does not exist!!!");
         }
-
     }
 }

@@ -2,7 +2,6 @@ package nl.novi.okerwebapp.controller;
 
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
-import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.service.OfferApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

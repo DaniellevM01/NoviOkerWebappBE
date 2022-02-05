@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
-
 @Service
 public class OfferApplicationService {
 
@@ -50,7 +49,7 @@ public class OfferApplicationService {
         OfferApplication offerApplication = new OfferApplication();
         offerApplication.setStatus(offerApplicationPostRequestDto.getStatus());
         offerApplication.setDescription(offerApplicationPostRequestDto.getDescription());
-        offerApplication.setUser(userRepository.findById(1).orElseThrow());
+        offerApplication.setUser(user);
         if(!offerApplicationPostRequestDto.getFile().isEmpty()){
             try{
                 Path root = Paths.get(uploadPath);

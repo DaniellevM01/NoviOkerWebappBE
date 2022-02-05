@@ -2,7 +2,6 @@ package nl.novi.okerwebapp.controller;
 
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationPostRequestDto;
-import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.service.VacancyApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -40,5 +39,4 @@ public class VacancyApplicationController {
         vacancyApplicationService.partialUpdateVacancyApplication(id, vacancyApplicationPatchRequestDto);
         return ResponseEntity.noContent().build();
     }
-
 }

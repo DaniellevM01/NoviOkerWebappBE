@@ -25,5 +25,4 @@ public class ExceptionController {
     public ResponseEntity<Object> exception(InvalidPasswordException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
-
 }

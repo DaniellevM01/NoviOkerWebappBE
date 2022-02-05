@@ -46,6 +46,8 @@ public class User {
             fetch = FetchType.LAZY)
     private Set<VacancyApplication> vacancyApplications = new HashSet<>();
 
+    public void setUserId(Integer user_id){ this.user_id = user_id; }
+
     public Integer getUserId(){ return user_id; }
 
     public String getUsername() {
