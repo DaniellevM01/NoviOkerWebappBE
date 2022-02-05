@@ -34,7 +34,7 @@ public class ContactApplicationControllerTests {
 
     @Test
     @WithMockUser(username = "ADMIN", authorities = {"ADMIN", "USER"})
-    public void testEndpointContactApplication() throws Exception {
+    public void PostContactApplication() throws Exception {
         //Arrange
 
         //Act
