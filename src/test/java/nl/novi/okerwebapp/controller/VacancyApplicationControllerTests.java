@@ -1,50 +1,46 @@
 package nl.novi.okerwebapp.controller;
 
-import nl.novi.okerwebapp.service.ContactApplicationService;
+import nl.novi.okerwebapp.model.User;
+import nl.novi.okerwebapp.model.VacancyApplication;
+import nl.novi.okerwebapp.service.VacancyApplicationService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ContactApplicationController.class)
-@ContextConfiguration(classes={ContactApplicationController.class})
-public class ContactApplicationControllerTests {
+@WebMvcTest(VacancyApplicationController.class)
+@ContextConfiguration(classes={VacancyApplicationController.class})
+public class VacancyApplicationControllerTests {
 
     @Autowired
     private MockMvc mvc;
 
     @MockBean
-    private ContactApplicationService contactApplicationService;
-
-
-    @MockBean
-    JavaMailSender mailSender;
+    private VacancyApplicationService vacancyApplicationService;
 
     @Test
     @WithMockUser(username = "ADMIN", authorities = {"ADMIN", "USER"})
-    public void PostContactApplication() throws Exception {
+    public void testPatchVacancyApplication() throws Exception {
         //Arrange
-
+        User user = new User();
+        VacancyApplication vacancyApplication = new VacancyApplication();
+        vacancyApplication.setStatus("aanvaard");
+        vacancyApplication.setDescription("Hey hallo");
         //Act
-        doNothing().when(mailSender).send(any(SimpleMailMessage.class));
 
         //Assert
-        mvc.perform(post("/contactapplications")
+        mvc.perform(patch("/vacancyapplications/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .with(csrf().asHeader())
-                        .content("{\"name\":\"Danielle van Manen\",\"telephoneNumber\":\"0639861015\",\"question\":\"Kunnen krankzinnige krokodillen knalgele kanaries kietelen?\",\"emailAddress\":\"danielleoker@gmail.com\"}"))
+                        .content("{\"status\": \"daan\"}"))
                 .andExpect(status().isNoContent());
     }
 }
