@@ -33,7 +33,7 @@ public class UserControllerTests {
 
     @Test
     @WithMockUser(username = "ADMIN", authorities = {"ADMIN", "USER"})
-    public void testEndpointGetUsers() throws Exception {
+    public void GetUsers() throws Exception {
         //Arrange
         User user = new User();
         user.setName("Danielle van Manen");
