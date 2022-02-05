@@ -1,13 +1,10 @@
 package nl.novi.okerwebapp.service;
 
-import nl.novi.okerwebapp.dto.requests.OfferApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.VacancyApplicationPostRequestDto;
-import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.model.Vacancy;
 import nl.novi.okerwebapp.model.VacancyApplication;
-import nl.novi.okerwebapp.repository.OfferApplicationRepository;
 import nl.novi.okerwebapp.repository.VacancyApplicationRepository;
 import nl.novi.okerwebapp.repository.VacancyRepository;
 import org.junit.jupiter.api.Test;
@@ -17,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;

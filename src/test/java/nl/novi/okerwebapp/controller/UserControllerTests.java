@@ -50,5 +50,4 @@ public class UserControllerTests {
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is(user.getName())));
     }
-
 }

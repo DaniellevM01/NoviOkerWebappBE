@@ -1,17 +1,12 @@
 package nl.novi.okerwebapp.service;
 
-import nl.novi.okerwebapp.dto.requests.VacancyApplicationPatchRequestDto;
 import nl.novi.okerwebapp.exception.RecordNotFoundException;
-import nl.novi.okerwebapp.model.User;
 import nl.novi.okerwebapp.model.Vacancy;
-import nl.novi.okerwebapp.model.VacancyApplication;
-import nl.novi.okerwebapp.repository.VacancyApplicationRepository;
 import nl.novi.okerwebapp.repository.VacancyRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mail.javamail.JavaMailSender;
 
 import java.util.ArrayList;
 import java.util.List;

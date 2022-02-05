@@ -89,9 +89,8 @@ public class UserService {
             return new UserCreateResponseDto(authResult.getJwt(), user.getUsername());
         }
         catch (Exception ex) {
-            throw new BadRequestException("Cannot create user.");
+            throw new BadRequestException("Can not create user.");
         }
-
     }
 
     private void createUserEmail(UserPostRequestDto userPostRequestDto) {
@@ -284,7 +283,6 @@ public class UserService {
                 throw new InvalidPasswordException();
             }
         }
-
         else {
            throw new NotAuthorizedException();
         }

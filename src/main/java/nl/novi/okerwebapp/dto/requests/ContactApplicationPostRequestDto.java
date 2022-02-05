@@ -1,6 +1,5 @@
 package nl.novi.okerwebapp.dto.requests;
 
-
 import javax.validation.constraints.NotBlank;
 
 public class ContactApplicationPostRequestDto {

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
@@ -42,9 +41,8 @@ class ContactApplicationServiceTest {
 
 
         SimpleMailMessage mail_message = mailCaptor.getValue();
-                //Assert
+        //Assert
         assertTrue(mail_message.getText().contains(contactApplicationPostRequestDto.getQuestion()));
         assertTrue(mail_message.getText().contains(contactApplicationPostRequestDto.getTelephoneNumber()));
-
     }
 }

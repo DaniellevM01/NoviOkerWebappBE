@@ -11,10 +11,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="okerwebapp" target="16" />
-    </bytecodeTargetLevel>
-    <bytecodeTargetLevel>
       <module name="OkerWebapp" target="16" />
+      <module name="okerwebapp" target="16" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">

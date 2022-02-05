@@ -41,5 +41,4 @@ public class OfferApplicationPostRequestDto {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
-
 }

@@ -1,20 +1,15 @@
 package nl.novi.okerwebapp.service;
 
-import nl.novi.okerwebapp.dto.requests.ContactApplicationPostRequestDto;
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPatchRequestDto;
 import nl.novi.okerwebapp.dto.requests.OfferApplicationPostRequestDto;
-import nl.novi.okerwebapp.dto.requests.VacancyApplicationPostRequestDto;
 import nl.novi.okerwebapp.model.OfferApplication;
 import nl.novi.okerwebapp.model.User;
-import nl.novi.okerwebapp.model.Vacancy;
-import nl.novi.okerwebapp.model.VacancyApplication;
 import nl.novi.okerwebapp.repository.OfferApplicationRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -23,8 +18,6 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doNothing;
 
 @ExtendWith(MockitoExtension.class)
 class OfferApplicationServiceTest {
@@ -66,7 +59,7 @@ class OfferApplicationServiceTest {
         Mockito.verify(offerApplicationRepository).save(offerApplicationArgumentCaptor.capture());
 
         OfferApplication saved_offer_application = offerApplicationArgumentCaptor.getValue();
-                //Assert
+        //Assert
         assertEquals(offerApplicationPatchRequestDto.getStatus(), saved_offer_application.getStatus());
         assertNotEquals("aanvaard", saved_offer_application.getStatus());
 
