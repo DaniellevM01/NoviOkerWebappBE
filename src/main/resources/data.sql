@@ -23,3 +23,12 @@ VALUES
 ('okervacancyapplication@gmail.com', 'SOLLICTOR'),
 ('okervacancyapplication@gmail.com', 'USER');
 
+INSERT INTO users_authorities (user_user_id, authorities_username, authorities_authority)
+VALUES
+(9991, 'danielleoker@gmail.com', 'CUSTOMER'),
+(9991, 'danielleoker@gmail.com', 'SOLLICTOR'),
+(9991, 'danielleoker@gmail.com', 'ADMIN'),
+(9992, 'okerofferapplication@gmail.com', 'CUSTOMER'),
+(9992, 'okerofferapplication@gmail.com', 'USER'),
+(9993, 'okervacancyapplication@gmail.com', 'SOLLICTOR'),
+(9993, 'okervacancyapplication@gmail.com', 'USER');
